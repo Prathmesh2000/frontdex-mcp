@@ -5,15 +5,15 @@ import os from 'node:os';
 import path from 'node:path';
 import { PassThrough } from 'node:stream';
 import { test } from 'node:test';
-import { loadConfig } from 'react-catalogue';
+import { loadConfig } from 'frontdex';
 import { startMcpServer } from '../src/server.js';
 
-// The sample app ships in the react-catalogue repo (not in its npm tarball), which the devDependency installs from git.
-const EXAMPLE = path.resolve(path.dirname(createRequire(import.meta.url).resolve('react-catalogue')), '../examples/next-app');
+// The sample app ships in the frontdex repo (not in its npm tarball); the devDependency links that repo.
+const EXAMPLE = path.resolve(path.dirname(createRequire(import.meta.url).resolve('frontdex')), '../examples/next-app');
 
 function tempProject() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'frontdex-mcp-'));
-  fs.cpSync(EXAMPLE, dir, { recursive: true, filter: (src) => !src.includes('.catalogue') && !src.endsWith('catalogue.yaml') });
+  fs.cpSync(EXAMPLE, dir, { recursive: true, filter: (src) => !src.includes('.frontdex') && !src.endsWith('frontdex.yaml') });
   return dir;
 }
 

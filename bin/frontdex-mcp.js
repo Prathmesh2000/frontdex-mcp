@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { loadConfig } from 'react-catalogue';
+import { loadConfig } from 'frontdex';
 import { startMcpServer } from '../src/server.js';
 
 const { values } = parseArgs({ options: { cwd: { type: 'string', short: 'C' } }, strict: false });

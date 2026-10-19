@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import readline from 'node:readline';
-import { createTools } from 'react-catalogue';
-import query from 'react-catalogue/query';
+import { createTools } from 'frontdex';
+import query from 'frontdex/query';
 
 const { QUERY_HELP } = query;
 const PKG = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'));

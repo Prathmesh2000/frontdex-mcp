@@ -5,7 +5,7 @@ MCP server for [Frontdex](https://github.com/Prathmesh2000/frontdex). It gives c
 ```mermaid
 flowchart LR
   Agent[Coding agent] -- stdio JSON-RPC --> MCP[frontdex-mcp]
-  MCP -- createTools · loadConfig --> Core[react-catalogue<br/>installed in your app]
+  MCP -- createTools · loadConfig --> Core[frontdex<br/>installed in your app]
   Core --> Src[your source]
 ```
 
@@ -16,14 +16,14 @@ The server holds no analysis code of its own. Every answer comes from the core p
 Both packages are devDependencies of your app:
 
 ```bash
-npm install --save-dev react-catalogue frontdex-mcp   # or pnpm add -D / yarn add -D / bun add -d
-npx rcat agents                                       # writes .mcp.json, Cursor and OpenCode config, rules and hooks
+npm install --save-dev frontdex frontdex-mcp   # or pnpm add -D / yarn add -D / bun add -d
+npx frontdex agents                            # writes .mcp.json, Cursor and OpenCode config, rules and hooks
 ```
 
-`rcat agents` registers `npx react-catalogue mcp`, which starts this package from your project. To register it by hand instead:
+`frontdex agents` registers `npx frontdex mcp`, which starts this package from your project. To register it by hand instead:
 
 ```json
-{ "mcpServers": { "react-catalogue": { "type": "stdio", "command": "npx", "args": ["frontdex-mcp"] } } }
+{ "mcpServers": { "frontdex": { "type": "stdio", "command": "npx", "args": ["frontdex-mcp"] } } }
 ```
 
 `frontdex-mcp -C <dir>` targets another project root.
