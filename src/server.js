@@ -93,6 +93,11 @@ const TOOLS = [
     inputSchema: { type: 'object', properties: { name: str('component name or id'), limit: { type: 'number', description: 'snapshots, default 20' } }, required: ['name'] },
   },
   {
+    name: 'catalogue_hooks',
+    description: 'Custom hooks: where each is defined, which contexts/stores it reads, which hooks it calls and which components use it. Check before writing a new hook.',
+    inputSchema: { type: 'object', properties: { name: str('optional hook name, e.g. "useAuth"') } },
+  },
+  {
     name: 'catalogue_diff',
     description: 'What the current change does to the frontend compared with a git ref (default: the last commit): components, pages and endpoints changed, pages each change reaches, new issues, duplicates and token drift. Run it before finishing a task.',
     inputSchema: { type: 'object', properties: { base: str('git ref to compare with, default HEAD (e.g. "origin/main")'), head: str('optional second ref; default is the working tree') } },
