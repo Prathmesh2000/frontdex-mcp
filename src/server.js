@@ -83,6 +83,16 @@ const TOOLS = [
     inputSchema: { type: 'object', properties: { query: str('optional filter: token name, value or file') } },
   },
   {
+    name: 'catalogue_owners',
+    description: 'Who owns a component and how it is tested: CODEOWNERS, test and story files, and live git activity (last change, commits in 90 days, top authors). Use it to know whom a change affects.',
+    inputSchema: { type: 'object', properties: { name: str('component name or id') }, required: ['name'] },
+  },
+  {
+    name: 'catalogue_adoption',
+    description: 'Usage of a component (rendering components and pages) across knowledge-base snapshots, e.g. to see a deprecated component going away.',
+    inputSchema: { type: 'object', properties: { name: str('component name or id'), limit: { type: 'number', description: 'snapshots, default 20' } }, required: ['name'] },
+  },
+  {
     name: 'catalogue_rescan',
     description: 'Incrementally rescan the source after you edit components or routes, and report what changed.',
     inputSchema: { type: 'object', additionalProperties: false },
