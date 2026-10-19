@@ -46,5 +46,5 @@ test('MCP server answers legacy and stateless clients', async () => {
   assert.match(replies[4].result.content[0].text, /render-loop · AdminSidebar/);
   assert.match(replies[5].result.content[0].text, /reads redux:ui `ui.drawerOpen`/);
   assert.match(replies[6].result.content[0].text, /written by: .*CartBadge/);
-  assert.equal(replies[7].result.tools.length, 17);
+  assert.equal(replies[7].result.tools.length, 18);
 });
