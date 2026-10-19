@@ -44,6 +44,9 @@ npx frontdex agents                            # writes .mcp.json, Cursor and Op
 | `catalogue_health` | Leaks, render loops, unsafe async, stale deps, dead code, with fixes |
 | `catalogue_rescan` | Incremental rescan and what changed |
 | `catalogue_history` | Knowledge-base snapshots, optionally for one component |
+| `catalogue_find_existing` | Run before creating a component: existing ones with a similar name or props |
+| `catalogue_duplicates` | Components that already look like duplicates of each other |
+| `catalogue_tokens` | Design tokens and hard-coded values that should use them |
 
 The server speaks the stateless 2026-07-28 MCP revision and the older initialize-handshake revisions (2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05).
 

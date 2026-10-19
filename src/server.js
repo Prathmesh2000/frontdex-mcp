@@ -11,7 +11,7 @@ const LEGACY = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const META_VERSION = 'io.modelcontextprotocol/protocolVersion';
 
 const INSTRUCTIONS = `Knowledge base of this project's React/Next.js components and pages.
-Use catalogue_search before creating a component (reuse beats duplication), catalogue_component / catalogue_dataflow before editing one,
+Use catalogue_find_existing (and catalogue_search) before creating a component (reuse beats duplication), catalogue_tokens instead of hard-coded colors/sizes, catalogue_component / catalogue_dataflow before editing one,
 catalogue_impact before changing props/exports, catalogue_health to avoid introducing leaks or dead code, catalogue_state / catalogue_api / catalogue_styles
 to reuse existing stores, endpoints and CSS, and catalogue_rescan after editing components or routes.`;
 
@@ -66,6 +66,21 @@ const TOOLS = [
     name: 'catalogue_styles',
     description: 'CSS usage: for a class name, where it is defined (file:line) and which components use it; for a component, its classes, CSS modules and stylesheets.',
     inputSchema: { type: 'object', properties: { className: str('CSS class to look up'), name: str('component name') } },
+  },
+  {
+    name: 'catalogue_find_existing',
+    description: 'Run BEFORE creating a component: existing components similar to the one you plan (same base name, shared name words, shared props), with file, props and usage count. Reuse or extend a match instead of duplicating it.',
+    inputSchema: { type: 'object', properties: { name: str('planned component name, e.g. "PrimaryButton"'), props: { type: 'array', items: { type: 'string' }, description: 'planned prop names' } }, required: ['name'] },
+  },
+  {
+    name: 'catalogue_duplicates',
+    description: 'Components that already look like duplicates of each other (scored on names, props, children and classes). Pass a component to see only its pairs.',
+    inputSchema: { type: 'object', properties: { name: str('optional component name or id') } },
+  },
+  {
+    name: 'catalogue_tokens',
+    description: 'Design tokens (CSS custom properties, Tailwind theme) and hard-coded values that match them, with where each is used and defined. Use tokens instead of literal colors and sizes.',
+    inputSchema: { type: 'object', properties: { query: str('optional filter: token name, value or file') } },
   },
   {
     name: 'catalogue_rescan',
