@@ -1,0 +1,44 @@
+{
+  "name": "frontdex-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Frontdex: gives coding agents a living index of your frontend's components, pages, state and APIs.",
+  "type": "module",
+  "bin": {
+    "frontdex-mcp": "bin/frontdex-mcp.js"
+  },
+  "main": "src/server.js",
+  "exports": {
+    ".": "./src/server.js"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "peerDependencies": {
+    "react-catalogue": ">=0.2.0"
+  },
+  "devDependencies": {
+    "react-catalogue": "file:../frontend-catalog"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prathmesh2000/frontdex-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "react",
+    "nextjs",
+    "frontend",
+    "ai-agents",
+    "claude-code",
+    "cursor"
+  ],
+  "license": "MIT"
+}
