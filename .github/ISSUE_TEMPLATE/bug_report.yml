@@ -1,0 +1,23 @@
+name: Bug report
+description: A tool fails, returns wrong data, or the server does not start in your agent
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The tool and arguments, what you expected, what you got.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: frontdex-mcp 0.3.0, frontdex 0.4.0, Node 22
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Coding agent / MCP client
+      placeholder: Claude Code, Cursor, Antigravity, …
