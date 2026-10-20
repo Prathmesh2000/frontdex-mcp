@@ -1,6 +1,6 @@
 {
   "name": "frontdex-mcp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "MCP server for Frontdex: gives coding agents a living index of your frontend's components, pages, state and APIs.",
   "type": "module",
   "bin": {
