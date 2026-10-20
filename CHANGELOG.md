@@ -2,6 +2,28 @@
 
 All notable changes to frontdex-mcp. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Short hashes point at the commit that made the change.
 
+## 0.3.0 (unreleased)
+
+Requires frontdex 0.4.0 or later.
+
+### Changed
+
+- **License: Apache-2.0** (was MIT), with a `NOTICE` file that redistributions keep. Versions up to 0.2.x stay MIT.
+- The server instructions tell agents to run the covering tests and keep component docs current.
+
+### Added
+
+Four tools, for 23 in total:
+
+| Tool | Returns |
+|---|---|
+| `catalogue_tests` | Unit and E2E tests covering a component, page or file, with the command to run them |
+| `catalogue_enrich_next` | Components whose docs are missing or stale, with the facts needed to write them |
+| `catalogue_enrich_write` | Saves agent-written docs for a component into the knowledge base |
+| `catalogue_docs` | A component's saved docs, or docs coverage |
+
+- CI on every PR and a manual Release workflow (npm Trusted Publishing with provenance); `CONTRIBUTING.md`, `AGENTS.md`, `SECURITY.md`, Code of Conduct, issue and PR templates.
+
 ## 0.2.0 (2026-10-20)
 
 Requires frontdex 0.3.0 or later.

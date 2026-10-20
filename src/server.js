@@ -13,7 +13,9 @@ const META_VERSION = 'io.modelcontextprotocol/protocolVersion';
 const INSTRUCTIONS = `Knowledge base of this project's React/Next.js components and pages.
 Use catalogue_find_existing (and catalogue_search) before creating a component (reuse beats duplication), catalogue_tokens instead of hard-coded colors/sizes, catalogue_component / catalogue_dataflow before editing one,
 catalogue_impact before changing props/exports, catalogue_health to avoid introducing leaks or dead code, catalogue_state / catalogue_api / catalogue_styles
-to reuse existing stores, endpoints and CSS, and catalogue_rescan after editing components or routes.`;
+to reuse existing stores, endpoints and CSS, and catalogue_rescan after editing components or routes.
+catalogue_tests tells you which tests cover what you changed. When you understand a component well (or after changing one), save its docs with
+catalogue_enrich_write; catalogue_enrich_next lists the components whose docs are missing or stale.`;
 
 const str = (description) => ({ type: 'string', description });
 const TOOLS = [
@@ -111,6 +113,46 @@ const TOOLS = [
     name: 'catalogue_history',
     description: 'Recent knowledge-base commits (git-like), optionally only those touching one component.',
     inputSchema: { type: 'object', properties: { name: str('optional component name or id'), limit: { type: 'number', description: 'default 10' } } },
+  },
+  {
+    name: 'catalogue_tests',
+    description: 'Unit and E2E tests mapped to components and pages: which test files and cases cover a component, a page or a file, and the exact command to run them. Use it to pick the tests to run after a change.',
+    inputSchema: { type: 'object', properties: { name: str('optional component name or id'), route: str('optional page route, e.g. "/users/:id"'), file: str('optional source or test file path') } },
+  },
+  {
+    name: 'catalogue_enrich_next',
+    description: 'Components that most need docs (undocumented, or docs gone stale after a change), with the facts to write them: prop types, how parents call the component, story args. Then read each source file and call catalogue_enrich_write.',
+    inputSchema: { type: 'object', properties: { limit: { type: 'number', description: 'how many components (default 5, max 20)' } } },
+  },
+  {
+    name: 'catalogue_enrich_write',
+    description: "Save docs for one component into the project's knowledge base (.frontdex/enrichment/, shown in the frontdex UI and in agent cards). Document only props and functions the component really has.",
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: str('component name or id'),
+        doc: {
+          type: 'object',
+          description: 'The docs',
+          properties: {
+            purpose: str('what the component is for, one or two sentences'),
+            summary: str('how it works: what it renders, reads and changes, when it shows what'),
+            props: { type: 'object', description: 'per prop: { description, howToPass?, example? }', additionalProperties: { type: 'object', properties: { description: str('what the prop does'), howToPass: str('expected values, shape, who provides it, what happens if omitted'), example: str('a short example value') }, required: ['description'] } },
+            functions: { type: 'object', description: 'per function or handler: what it does and when it runs', additionalProperties: { type: 'string' } },
+            usage: { type: 'array', description: 'usage examples', items: { type: 'object', properties: { title: str('example title'), code: str('JSX snippet') }, required: ['title', 'code'] } },
+            notes: { type: 'array', description: 'pitfalls, constraints, accessibility or performance notes', items: { type: 'string' } },
+          },
+          required: ['purpose'],
+        },
+        by: str('optional author label, e.g. the agent name'),
+      },
+      required: ['name', 'doc'],
+    },
+  },
+  {
+    name: 'catalogue_docs',
+    description: 'The saved docs of one component (purpose, props and how to pass them, functions, usage, notes; marked stale if the component changed since), or docs coverage for the project without a name.',
+    inputSchema: { type: 'object', properties: { name: str('optional component name or id') } },
   },
 ];
 
