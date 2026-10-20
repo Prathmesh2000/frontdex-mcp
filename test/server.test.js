@@ -46,5 +46,28 @@ test('MCP server answers legacy and stateless clients', async () => {
   assert.match(replies[4].result.content[0].text, /render-loop · AdminSidebar/);
   assert.match(replies[5].result.content[0].text, /reads redux:ui `ui.drawerOpen`/);
   assert.match(replies[6].result.content[0].text, /written by: .*CartBadge/);
-  assert.equal(replies[7].result.tools.length, 19);
+  assert.equal(replies[7].result.tools.length, 23);
+});
+
+test('an agent documents a component through MCP and reads the docs back', async () => {
+  const input = new PassThrough();
+  const output = new PassThrough();
+  let buf = '';
+  output.on('data', (d) => (buf += d));
+  const done = startMcpServer(loadConfig(tempProject()), { input, output });
+  const doc = { purpose: 'Primary action button.', props: { variant: { description: 'Visual style.', howToPass: "'primary' (default) or 'ghost'" } }, usage: [{ title: 'Save', code: '<Button>Save</Button>' }] };
+  for (const msg of [
+    { jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-11-25', capabilities: {} } },
+    { jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'catalogue_enrich_next', arguments: { limit: 1 } } },
+    { jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'catalogue_enrich_write', arguments: { name: 'Button', doc, by: 'test-agent' } } },
+    { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'catalogue_docs', arguments: { name: 'Button' } } },
+    { jsonrpc: '2.0', id: 5, method: 'tools/call', params: { name: 'catalogue_tests', arguments: { name: 'Button' } } },
+  ]) input.write(JSON.stringify(msg) + '\n');
+  input.end();
+  await done;
+  const text = (id) => buf.trim().split('\n').map((l) => JSON.parse(l)).find((r) => r.id === id).result.content[0].text;
+  assert.match(text(2), /## Button/);
+  assert.match(text(3), /Saved docs for Button/);
+  assert.match(text(4), /Primary action button\.[\s\S]*How to pass: 'primary'/);
+  assert.match(text(5), /Button\.test\.tsx/);
 });
