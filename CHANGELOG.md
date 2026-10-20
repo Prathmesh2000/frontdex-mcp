@@ -2,7 +2,7 @@
 
 All notable changes to frontdex-mcp. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Short hashes point at the commit that made the change.
 
-## 0.2.0 (unreleased)
+## 0.2.0 (2026-10-20)
 
 Requires frontdex 0.3.0 or later.
 
@@ -25,7 +25,7 @@ Seven tools, for 19 in total:
 | `catalogue_diff` | The current change against a git ref: components and pages changed, pages reached, new issues | `295e3d3` |
 | `catalogue_hooks` | Custom hooks, what they read and call, and which components use them | `d264fc1` |
 
-## 0.1.0 (unreleased, superseded by 0.2.0)
+## 0.1.0 (never published, superseded by 0.2.0)
 
 The MCP server split out of react-catalogue 0.2 into this repo (`7ac8f2e`). It peered on `react-catalogue >=0.2.0` and was never released under that pairing.
 

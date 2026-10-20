@@ -24,7 +24,7 @@
     "frontdex": ">=0.3.0"
   },
   "devDependencies": {
-    "frontdex": "file:../frontend-catalog"
+    "frontdex": "^0.3.1"
   },
   "repository": {
     "type": "git",
