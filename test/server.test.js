@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { createRequire } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import { PassThrough } from 'node:stream';
@@ -8,8 +7,9 @@ import { test } from 'node:test';
 import { loadConfig } from 'frontdex';
 import { startMcpServer } from '../src/server.js';
 
-// The sample app ships in the frontdex repo (not in its npm tarball); the devDependency links that repo.
-const EXAMPLE = path.resolve(path.dirname(createRequire(import.meta.url).resolve('frontdex')), '../examples/next-app');
+// A copy of frontdex's examples/next-app sources: the frontdex npm package does not ship its examples, and the tests
+// run against the published frontdex.
+const EXAMPLE = path.resolve(import.meta.dirname, 'fixtures/next-app');
 
 function tempProject() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'frontdex-mcp-'));
